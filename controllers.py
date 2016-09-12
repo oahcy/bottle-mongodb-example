@@ -6,8 +6,14 @@ from bottle import request, response, get, post
 from bottle import static_file, redirect, HTTPResponse
 from bottle import mako_view as view
 from PIL import Image
-from pymongo.objectid import ObjectId
 from models import Message
+
+from pymongo import version
+version_num = int(''.join(version.split('.')))
+if version_num > 220:
+    from bson.objectid import ObjectId
+else:
+    from pymongo.objectid import ObjectId
 
 PAGE_SIZE = 5
 
